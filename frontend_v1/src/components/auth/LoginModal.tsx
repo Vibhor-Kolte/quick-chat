@@ -9,20 +9,26 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog";
-
+import { Button } from "@/components/ui/button";
+import Image from 'next/image';
 
 function LoginModal() {
   return (
     <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
+        <DialogTrigger asChild>
+            <Button>Get Started</Button>
+        </DialogTrigger>
         <DialogContent>
             <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle className='text-2xl'>Welcome to Quick-Chat!</DialogTitle>
             <DialogDescription>
-                This action cannot be undone. This will permanently delete your account
-                and remove your data from our servers.
+                Quick-Chat is Awesome!
             </DialogDescription>
-            </DialogHeader>
+            </DialogHeader> 
+            <Button variant={'outline'}>
+                <Image src='/images/google.png' alt='Google Icon' className='mr-4' width={24} height={24} />
+                Continue with Google
+            </Button>
         </DialogContent>
     </Dialog>
 

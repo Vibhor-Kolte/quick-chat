@@ -1,10 +1,43 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions, ISODateString } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+
+export interface CustomSession {
+    user?: CustomUser;
+    expires: ISODateString;
+}
+export interface CustomUser {
+    id?: string | null;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    provider?: string | null;
+    token?: string | null;
+}
 
 export const authOptions: AuthOptions = {
     pages: {
         signIn: '/'
+    },
+    callbacks: {
+        async signIn({ user, account }) {
+            console.log('signIn:- ', user, account)
+            return true
+        },
+        async session({ session, user, token }:{ 
+            session: CustomSession, 
+            user: CustomUser, 
+            token: JWT 
+        }) {
+            return session
+        },
+        async jwt({ token, user }) {
+            if (user) {
+                token.user = user;
+            }
+            return token;
+        }
     },
   // Configure one or more authentication providers
   providers: [
