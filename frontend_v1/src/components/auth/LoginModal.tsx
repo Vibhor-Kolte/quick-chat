@@ -11,6 +11,14 @@ import {
   } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import { signIn } from "next-auth/react";
+
+const handleGoogleLogin = async () => {
+  signIn("google", {
+    redirect: true,
+    callbackUrl: "/dashboard",
+  });
+};
 
 function LoginModal() {
   return (
@@ -25,7 +33,7 @@ function LoginModal() {
                 Quick-Chat is Awesome!
             </DialogDescription>
             </DialogHeader> 
-            <Button variant={'outline'}>
+            <Button variant={'outline'} onClick={handleGoogleLogin}>
                 <Image src='/images/google.png' alt='Google Icon' className='mr-4' width={24} height={24} />
                 Continue with Google
             </Button>
