@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "@/components/common/UserAvatar";
 import dynamic from "next/dynamic";
+
 const LogoutModal = dynamic(() => import("../auth/LogoutModal"));
 
 export default function ProfileMenu({
@@ -23,7 +24,9 @@ export default function ProfileMenu({
     const [logoutOpen, setLogoutOpen] = useState(false);
     return (
         <>
-            {logoutOpen && <LogoutModal open={logoutOpen} setOpen={setLogoutOpen} />}
+            {logoutOpen && <Suspense fallback={<p>Loading...</p>}>
+                <LogoutModal open={logoutOpen} setOpen={setLogoutOpen} />
+            </Suspense>}
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <UserAvatar name={name} image={image} />
