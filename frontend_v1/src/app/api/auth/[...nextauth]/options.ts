@@ -60,13 +60,14 @@ export const authOptions: AuthOptions = {
             user: CustomUser,
             token: JWT
         }) {
+            session.user = token.user as CustomUser;
             return session
         },
         async jwt({ token, user }) {
             if (user) {
                 token.user = user;
             }
-            console.log(token);
+            // console.log(token);
             return token;
         }
     },

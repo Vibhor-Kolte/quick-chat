@@ -12,10 +12,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    createChatSchema,
-    createChatSchemaType,
-} from "@/validations/chatSchema";
+import {createChatSchema, createChatSchemaType} from "@/validations/chatSchema";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 import axios, { AxiosError } from "axios";
 import { CHAT_GROUP } from "@/lib/apiEndPoints";
@@ -35,6 +32,7 @@ export default function CreateChat({ user }: { user: CustomUser }) {
     });
     const onSubmit = async (payload: createChatSchemaType) => {
         // console.log("The payload is", payload);
+        // console.log("The token is", user.token);
         try {
             setLoading(true);
             const { data } = await axios.post(CHAT_GROUP, payload, {
